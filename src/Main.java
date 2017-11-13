@@ -1,3 +1,6 @@
+import org.joda.time.DateTime;
+import org.joda.time.Period;
+
 import java.awt.*;
 import java.io.*;
 import java.net.ServerSocket;
@@ -17,7 +20,8 @@ public class Main {
         List<String > ort = new LinkedList<>();
         List<String> zeit = new LinkedList<>();
         List<String> verkehrsmittel = new LinkedList<>();
-        int[] durations = new int[3];
+        int[] durations = new int[3]; //Zeit für Arbeitsweg
+        int[] timeToLeave = new int[3];//Zeit bis man gehen muss
 
         for (int i = 0;i<9;i = i +3){
             ort.add(args[i]);
@@ -35,9 +39,19 @@ public class Main {
             for (int i = 0;i<3;i++) {
                 durations[i] = GoogleController.getTravelduration(ort.get(i), verkehrsmittel.get(i));
             }
-            System.out.println(durations[0]);
-            System.out.println(durations[1]);
-            System.out.println(durations[2]);
+            for (int i = 0;i<3;i++){                    //berechnet die Zeit in Sekunden zwischen gewünschter Ankunftszeit und aktueller Uhrzeit
+                DateTime dt = new DateTime();
+                dt = dt.dayOfMonth().roundFloorCopy();
+                dt = dt.plusHours(Integer.parseInt(zeit.get(i).split(":")[0]));
+                dt = dt.plusMinutes(Integer.parseInt(zeit.get(i).split(":")[1]));
+                Period diff = new Period( new DateTime(),dt);
+                timeToLeave[i]=diff.toStandardSeconds().getSeconds() - durations[i]; // Abfahrtszeit = Zeit bis Arbeitsbeginn - dauer Arbeitsweg
+
+            }
+
+            System.out.println(timeToLeave[0]);
+            System.out.println(timeToLeave[1]);
+            System.out.println(timeToLeave[2]);
             TimeUnit.SECONDS.sleep(5);
         }
     }
