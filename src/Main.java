@@ -20,8 +20,8 @@ public class Main {
         List<String > ort = new LinkedList<>();
         List<String> zeit = new LinkedList<>();
         List<String> verkehrsmittel = new LinkedList<>();
-        int[] durations = new int[3]; //Zeit für Arbeitsweg
-        int[] timeToLeave = new int[3];//Zeit bis man gehen muss
+        int[] durations = new int[3]; //Zeit für Arbeitsweg in Sekunden
+        int[] timeToLeave = new int[3];//Zeit bis man gehen muss in Sekunden
 
         for (int i = 0;i<9;i = i +3){
             ort.add(args[i]);
@@ -49,9 +49,11 @@ public class Main {
 
             }
 
-            System.out.println(timeToLeave[0]);
-            System.out.println(timeToLeave[1]);
-            System.out.println(timeToLeave[2]);
+            System.out.println("User 1 has to leave in " + timeToLeave[0]);
+            System.out.println("User 2 has to leave in " +timeToLeave[1]);
+            System.out.println("User 3 has to leave in " +timeToLeave[2]);
+
+            //Hier Code zur steuerung der lampen
             TimeUnit.SECONDS.sleep(5);
         }
     }
