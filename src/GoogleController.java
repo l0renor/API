@@ -10,6 +10,7 @@ public class GoogleController {
     public static final String START = "Lothstraße+6+München";
 
     /**
+     * Leon Lukas
      * Does Rest request to get travel time.
      * @param goal goal
      * @param verkehrsmittel genutzes Verkehrsmittel
