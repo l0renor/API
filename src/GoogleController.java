@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class GoogleController {
 
     public static final String BASEGOOGLE = "https://maps.googleapis.com/maps/api/distancematrix/json?language=de&units=metric";
-    public static final String START = "Lothstraße+6+München";
+    public static final String START = "Lothstraße+64+München";
 
     /**
      * Leon Lukas

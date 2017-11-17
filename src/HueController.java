@@ -1,13 +1,7 @@
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jdk.nashorn.internal.ir.debug.JSONWriter;
-
-import javax.swing.text.html.HTML;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
 
 public class HueController {
     private final static String BASE = "http://localhost:80/api/newdeveloper";
@@ -23,18 +17,11 @@ public class HueController {
     private final static String ORANGE = "{ 'on': true, 'hue': 4500, 'sat': 230, 'bri': 200 }";
     private final static String RED = "{ 'on': true, 'hue': 0, 'sat': 254, 'bri': 254 }";
 
-
     public HueController() {
-            initializeHue();
-    }
-
-    private void initializeHue() {
-        String json = "{'lights': ['1','2','3']}";
-        sendRequest(GROUP,json);
-        System.out.println(GROUP+","+json);
+        String json = "{ 'lights': ['1','2','3'] }";
+        sendRequest(GROUP, json);
         json = WHITE;
-        sendRequest(ACTION,json);
-        System.out.println(ACTION+","+json);
+        sendRequest(ACTION, json);
     }
 
     /**
@@ -87,5 +74,4 @@ public class HueController {
 
 
     }
-
 }
