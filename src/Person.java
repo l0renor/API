@@ -1,3 +1,4 @@
+import java.time.Duration;
 import java.time.LocalTime;
 
 public class Person {
@@ -29,6 +30,11 @@ public class Person {
 
     public String getMeanOfTransport() {
         return meanOfTransport;
+    }
+
+    public int getSecondsUntilLeave(int secondsOfTravel) {
+        Duration secondsUntilLeave = Duration.between(LocalTime.now(), startingTime.minusSeconds((long) secondsOfTravel));
+        return (int) secondsUntilLeave.getSeconds();
     }
     
     public void leave() {

@@ -7,25 +7,40 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Collections;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.List;
-import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 //Bsp args: Agnes-Pockels-Bogen+21+80992+München 8:15 bicycling Ingolstädter+Str.+38+80992+München 10:00 driving Bunzlauer+Str.+8+80992+München 8:30 transit
+
 public class Main {
     public static final String BASEGOOGLE = "https://maps.googleapis.com/maps/api/distancematrix/json?language=de&units=metric";
     public static final String BROWSERURL = "https://www.google.de/maps/dir/Lothstraße+6,+80335+München/";
 
 
-    public static void main(String []args ) throws InterruptedException {
+    public static void main(String []args ) throws InterruptedException, URISyntaxException, IOException {
         HueController c = new HueController();
+
         Person leonLukas = new Person("Leon Lukas", "Agnes-Pockels-Bogen+21+80992+München", "08:15", "bicycling");
         Person paulaPuenktlich = new Person("Paula Pünktlich", "Ingolstädter+Str.+38+80992+München", "10:00", "driving");
         Person lotharLate = new Person("Lothar Late", "Bunzlauer+Str.+8+80992+München", "08:30", "transit");
+
+        List<Person> persons = new ArrayList<>();
+        persons.add(leonLukas);
+        persons.add(paulaPuenktlich);
+        persons.add(lotharLate);
+
+        if(Desktop.isDesktopSupported()) {
+            for(Person p : persons) {
+                String uri = BROWSERURL + p.getWorkplace();
+                Desktop.getDesktop().browse(new URI(uri));
+            }
+        }
+
+        while()
+
     }
 
-    public static void main(String []args ) throws InterruptedException, URISyntaxException, IOException {
+    /*public static void main(String []args ) throws InterruptedException, URISyntaxException, IOException {
             List<String > ort = new LinkedList<>();
             List<String> zeit = new LinkedList<>();
             List<String> verkehrsmittel = new LinkedList<>();
