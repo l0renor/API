@@ -33,9 +33,19 @@ public class Main {
 
         while (true) {
             for (Person p : persons) {
-                int secondsToTravel = GoogleController.getTravelduration(p.getWorkplace(), p.getMeanOfTransport());
-                System.out.println(p.getSecondsUntilLeave(secondsToTravel));
-                if(p.g)
+                if(p.isHome()) {
+                    int secondsToTravel = GoogleController.getTravelduration(p.getWorkplace(), p.getMeanOfTransport());
+                    int secondsUntilLeave = p.getSecondsUntilLeave(secondsToTravel);
+                    if (secondsUntilLeave > 120) {
+                        c.changeLight(p.getLightNumber(), Color.WHITE);
+                    } else if (secondsUntilLeave > 60) {
+                        c.changeLight(p.getLightNumber(), Color.ORANGE);
+                    } else if (secondsToTravel > 0) {
+                        c.changeLight(p.getLightNumber(), Color.RED);
+                    } else {
+                        c.changeLight(0,Color.OFF);
+                    }
+                }
             }
             TimeUnit.SECONDS.sleep(5);
         }

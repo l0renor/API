@@ -47,4 +47,8 @@ public class Person {
     public boolean isHome() {
         return atHome;
     }
+
+    public int getLightNumber() {
+        return lightNumber;
+    }
 }
