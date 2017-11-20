@@ -15,9 +15,9 @@ public class Main {
     public static void main(String[] args) throws InterruptedException, URISyntaxException, IOException {
         HueController c = new HueController();
 
-        Person leonLukas = new Person("Leon Lukas", "Agnes-Pockels-Bogen+21+80992+München", "16:00", "bicycling");
-        Person paulaPuenktlich = new Person("Paula Pünktlich", "Ingolstädter+Str.+38+80992+München", "10:00", "driving");
-        Person lotharLate = new Person("Lothar Late", "Bunzlauer+Str.+8+80992+München", "08:30", "transit");
+        Person leonLukas = new Person("Leon Lukas", "Agnes-Pockels-Bogen+21+80992+München", "16:20", "bicycling",1);
+        Person paulaPuenktlich = new Person("Paula Pünktlich", "Ingolstädter+Str.+38+80992+München", "16:30", "driving",2);
+        Person lotharLate = new Person("Lothar Late", "Bunzlauer+Str.+8+80992+München", "16:30", "transit",3);
 
         List<Person> persons = new ArrayList<>();
         persons.add(leonLukas);
@@ -28,7 +28,7 @@ public class Main {
         Thread atHome = new Thread(new Runnable() { public void run() {
             try {
                 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-                System.out.print("Gib deinen Namen ein wenn du gehts!!");
+                System.out.println("Gib deinen Namen ein wenn du gehst!!");
                 String s = br.readLine();
                 for(Person p: persons){
                     if (p.getName().equals(s)) {
@@ -53,14 +53,16 @@ public class Main {
                 if(p.isHome()) {
                     int secondsToTravel = GoogleController.getTravelduration(p.getWorkplace(), p.getMeanOfTransport());
                     int secondsUntilLeave = p.getSecondsUntilLeave(secondsToTravel);
+                    System.out.println(secondsUntilLeave);
                     if (secondsUntilLeave > 120) {
                         c.changeLight(p.getLightNumber(), Color.WHITE);
                     } else if (secondsUntilLeave > 60) {
                         c.changeLight(p.getLightNumber(), Color.ORANGE);
-                    } else if (secondsToTravel > 0) {
+                    } else if (secondsUntilLeave > 0) {
                         c.changeLight(p.getLightNumber(), Color.RED);
                     } else {
-                        c.changeLight(0,Color.OFF);
+                        //TODO Threat implemetieren
+                        c.changeLight(p.getLightNumber(), Color.OFF);
                     }
                 }
             }
