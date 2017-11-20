@@ -24,6 +24,23 @@ public class Main {
         persons.add(paulaPuenktlich);
         persons.add(lotharLate);
 
+
+        Thread atHome = new Thread(new Runnable() { public void run() {
+            try {
+                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+                System.out.print("Gib deinen Namen ein wenn du gehts!!");
+                String s = br.readLine();
+                for(Person p: persons){
+                    if (p.getName().equals(s)) {
+                        p.leave();
+                    }
+                }
+            }catch(Exception e ){
+                e.printStackTrace();
+            }
+        }});
+        atHome.start();
+
         /*if (Desktop.isDesktopSupported()) {
             for (Person p : persons) {
                 String uri = BROWSERURL + p.getWorkplace();
