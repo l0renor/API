@@ -6,14 +6,17 @@ public class Person {
     private String workplace;
     private LocalTime startingTime;
     private String meanOfTransport;
-    private boolean athome;
+    private boolean atHome;
+    private int lightNumber;
 
-    public Person(String name, String workplace, String startingTime, String meanOfTransport) {
+
+    public Person(String name, String workplace, String startingTime, String meanOfTransport, int lightNumber) {
         this.name = name;
         this.workplace = workplace;
         this.startingTime = LocalTime.parse(startingTime);
         this.meanOfTransport = meanOfTransport;
-        athome = true;
+        atHome = true;
+        this.lightNumber = lightNumber;
     }
 
     public String getName() {
@@ -38,10 +41,10 @@ public class Person {
     }
     
     public void leave() {
-        athome = false;
+        atHome = false;
     }
 
     public boolean isHome() {
-        return athome;
+        return atHome;
     }
 }
