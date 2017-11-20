@@ -6,11 +6,11 @@ public enum Color {
 
     private String jsonMessage;
 
-    private Color(String jsonMessage) {
+    Color(String jsonMessage) {
         this.jsonMessage = jsonMessage;
     }
 
-    private String getJsonMessage() {
+    public String getJsonMessage() {
         return jsonMessage;
     }
 }

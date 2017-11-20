@@ -1,10 +1,5 @@
-import org.joda.time.DateTime;
-import org.joda.time.Period;
-
 import java.awt.*;
 import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
@@ -17,10 +12,10 @@ public class Main {
     public static final String BROWSERURL = "https://www.google.de/maps/dir/Lothstraße+6,+80335+München/";
 
 
-    public static void main(String []args ) throws InterruptedException, URISyntaxException, IOException {
+    public static void main(String[] args) throws InterruptedException, URISyntaxException, IOException {
         HueController c = new HueController();
 
-        Person leonLukas = new Person("Leon Lukas", "Agnes-Pockels-Bogen+21+80992+München", "08:15", "bicycling");
+        Person leonLukas = new Person("Leon Lukas", "Agnes-Pockels-Bogen+21+80992+München", "16:00", "bicycling");
         Person paulaPuenktlich = new Person("Paula Pünktlich", "Ingolstädter+Str.+38+80992+München", "10:00", "driving");
         Person lotharLate = new Person("Lothar Late", "Bunzlauer+Str.+8+80992+München", "08:30", "transit");
 
@@ -29,16 +24,24 @@ public class Main {
         persons.add(paulaPuenktlich);
         persons.add(lotharLate);
 
-        if(Desktop.isDesktopSupported()) {
-            for(Person p : persons) {
+        /*if (Desktop.isDesktopSupported()) {
+            for (Person p : persons) {
                 String uri = BROWSERURL + p.getWorkplace();
                 Desktop.getDesktop().browse(new URI(uri));
             }
+        } */
+
+        while (true) {
+            for (Person p : persons) {
+                int secondsToTravel = GoogleController.getTravelduration(p.getWorkplace(), p.getMeanOfTransport());
+                System.out.println(p.getSecondsUntilLeave(secondsToTravel));
+                if(p.g)
+            }
+            TimeUnit.SECONDS.sleep(5);
         }
 
-        while()
-
     }
+}
 
     /*public static void main(String []args ) throws InterruptedException, URISyntaxException, IOException {
             List<String > ort = new LinkedList<>();
@@ -94,6 +97,3 @@ public class Main {
             System.out.println(durations[2]);
             TimeUnit.SECONDS.sleep(5);
         } */
-    }
-
-}
