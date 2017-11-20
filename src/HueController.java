@@ -26,7 +26,6 @@ public class HueController {
      */
     public void changeLight(int number, Color color) {
         String base;
-        String body;
         if (number == 0) {
             base = ACTION;
         } else {

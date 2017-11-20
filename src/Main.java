@@ -26,17 +26,19 @@ public class Main {
 
 
         Thread atHome = new Thread(new Runnable() { public void run() {
-            try {
-                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-                System.out.println("Gib deinen Namen ein wenn du gehst!!");
-                String s = br.readLine();
-                for(Person p: persons){
-                    if (p.getName().equals(s)) {
-                        p.leave();
+            while (true) {
+                try {
+                    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+                    System.out.println("Gib deinen Namen ein wenn du gehst!!");
+                    String s = br.readLine();
+                    for (Person p : persons) {
+                        if (p.getName().equals(s)) {
+                            p.leave();
+                        }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            }catch(Exception e ){
-                e.printStackTrace();
             }
         }});
         atHome.start();
@@ -61,9 +63,16 @@ public class Main {
                     } else if (secondsUntilLeave > 0) {
                         c.changeLight(p.getLightNumber(), Color.RED);
                     } else {
-                        //TODO Threat implemetieren
-                        c.changeLight(p.getLightNumber(), Color.OFF);
+                        while(p.isHome()) {
+                            c.changeLight(0, Color.RED);
+                            Thread.sleep(500);
+                            c.changeLight(0, Color.OFF);
+                            Thread.sleep(500);
+                        }
+                        atHome.start();
                     }
+                } else {
+                    c.changeLight(p.getLightNumber(), Color.OFF);
                 }
             }
             TimeUnit.SECONDS.sleep(5);
