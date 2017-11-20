@@ -7,14 +7,16 @@ public class Person {
     private LocalTime startingTime;
     private String meanOfTransport;
     private boolean atHome;
+    private int lightNumber;
 
 
-    public Person(String name, String workplace, String startingTime, String meanOfTransport) {
+    public Person(String name, String workplace, String startingTime, String meanOfTransport, int lightNumber) {
         this.name = name;
         this.workplace = workplace;
         this.startingTime = LocalTime.parse(startingTime);
         this.meanOfTransport = meanOfTransport;
         atHome = true;
+        this.lightNumber = lightNumber;
     }
 
     public String getName() {
