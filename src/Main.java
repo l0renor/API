@@ -23,19 +23,9 @@ public class Main {
         Person leonLukas = new Person("Leon Lukas", "Agnes-Pockels-Bogen+21+80992+München", "08:15", "bicycling");
         Person paulaPuenktlich = new Person("Paula Pünktlich", "Ingolstädter+Str.+38+80992+München", "10:00", "driving");
         Person lotharLate = new Person("Lothar Late", "Bunzlauer+Str.+8+80992+München", "08:30", "transit");
-        List<Person> persons = new LinkedList<>();
-        List<String > ort = new LinkedList<>();
-        List<String> zeit = new LinkedList<>();
-        List<String> verkehrsmittel = new LinkedList<>();
-        int[] durations = new int[3];
+    }
+
     public static void main(String []args ) throws InterruptedException, URISyntaxException, IOException {
-//        HueController c = new HueController();
-//        for (int j = 0; j < 60; j++) {
-//            c.changeLight(0, 0);
-//            Thread.sleep(1000);
-//            c.changeLight(0, 3);
-//            Thread.sleep(1000);
-//        }
             List<String > ort = new LinkedList<>();
             List<String> zeit = new LinkedList<>();
             List<String> verkehrsmittel = new LinkedList<>();
@@ -75,7 +65,7 @@ public class Main {
                 //Hier Code zur steuerung der lampen
                 TimeUnit.SECONDS.sleep(5);
             }
-        for (int i = 0;i<9;i = i + 3){
+        /*for (int i = 0;i<9;i = i + 3){
             ort.add(args[i]);
             zeit.add(args[i+1]);
             verkehrsmittel.add(args[i+2]);
@@ -88,7 +78,7 @@ public class Main {
             System.out.println(durations[1]);
             System.out.println(durations[2]);
             TimeUnit.SECONDS.sleep(5);
-        }
+        } */
     }
 
 }
