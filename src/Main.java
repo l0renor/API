@@ -19,10 +19,29 @@ public class Main {
         Person paulaPuenktlich = new Person("Paula Pünktlich", "Ingolstädter+Str.+38+80992+München", "10:00", "driving");
         Person lotharLate = new Person("Lothar Late", "Bunzlauer+Str.+8+80992+München", "08:30", "transit");
 
+
+
         List<Person> persons = new ArrayList<>();
         persons.add(leonLukas);
         persons.add(paulaPuenktlich);
         persons.add(lotharLate);
+
+
+        Thread atHome = new Thread(new Runnable() { public void run() {
+            try {
+                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+                System.out.print("Gib deinen Namen ein wenn du gehts!!");
+                String s = br.readLine();
+                for(Person p: persons){
+                    if (p.getName().equals(s)) {
+                        p.leave();
+                    }
+                }
+            }catch(Exception e ){
+                e.printStackTrace();
+            }
+        }});
+        atHome.start();
 
         /*if (Desktop.isDesktopSupported()) {
             for (Person p : persons) {
@@ -35,7 +54,7 @@ public class Main {
             for (Person p : persons) {
                 int secondsToTravel = GoogleController.getTravelduration(p.getWorkplace(), p.getMeanOfTransport());
                 System.out.println(p.getSecondsUntilLeave(secondsToTravel));
-                if(p.g)
+               // if(p.g)
             }
             TimeUnit.SECONDS.sleep(5);
         }
