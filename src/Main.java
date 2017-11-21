@@ -16,8 +16,8 @@ public class Main {
         HueController c = new HueController();
 
         Person leonLukas = new Person("Leon Lukas", "Agnes-Pockels-Bogen+21+80992+München", "16:20", "bicycling",1);
-        Person paulaPuenktlich = new Person("Paula Pünktlich", "Ingolstädter+Str.+38+80992+München", "16:30", "driving",2);
-        Person lotharLate = new Person("Lothar Late", "Bunzlauer+Str.+8+80992+München", "16:30", "transit",3);
+        Person paulaPuenktlich = new Person("Paula Pünktlich", "Ingolstädter+Str.+38+80992+München", "18:30", "driving",2);
+        Person lotharLate = new Person("Lothar Late", "Bunzlauer+Str.+8+80992+München", "18:30", "transit",3);
 
         List<Person> persons = new ArrayList<>();
         persons.add(leonLukas);
@@ -43,12 +43,12 @@ public class Main {
         }});
         atHome.start();
 
-        /*if (Desktop.isDesktopSupported()) {
+        if (Desktop.isDesktopSupported()) {
             for (Person p : persons) {
                 String uri = BROWSERURL + p.getWorkplace();
                 Desktop.getDesktop().browse(new URI(uri));
             }
-        } */
+        }
 
         while (true) {
             for (Person p : persons) {
@@ -65,11 +65,11 @@ public class Main {
                     } else {
                         while(p.isHome()) {
                             c.changeLight(0, Color.RED);
-                            Thread.sleep(500);
+                            Thread.sleep(1000);
                             c.changeLight(0, Color.OFF);
-                            Thread.sleep(500);
+                            Thread.sleep(1000);
                         }
-                        atHome.start();
+                        c.changeLight(0, Color.WHITE);
                     }
                 } else {
                     c.changeLight(p.getLightNumber(), Color.OFF);

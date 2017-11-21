@@ -4,7 +4,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class HueController {
-    private final static String BASE = "http://localhost:80/api/newdeveloper";
+    private final static String BASE = "http://10.28.9.121/api/3dc1d8f23e55321f3c049c03ac88dff";
     private final static String GROUP = BASE+"/groups/1";
     private final static String ACTION = GROUP+"/action";
     private final static String LIGHTS = BASE+"/lights";
@@ -13,7 +13,7 @@ public class HueController {
     private final static String PUT = "PUT";
 
     public HueController() {
-        String json = "{ 'lights': ['1','2','3'] }";
+        String json = "{ \"lights\": [\"1\",\"2\",\"3\"] }";
         sendRequest(GROUP, json);
         json = Color.WHITE.getJsonMessage();
         sendRequest(ACTION, json);
