@@ -17,6 +17,8 @@ public class GoogleController {
      * @return the traveltime in seconds
      */
     public static int getTravelduration(String goal, String verkehrsmittel){
+        try{
+
         TCPClient3 client = new TCPClient3();
         HashMap<String,String> params = new HashMap<>();
         params.put("destinations",goal);
@@ -32,5 +34,8 @@ public class GoogleController {
             e.printStackTrace();
         }
         return  Integer.parseInt(json.getRows()[0].getElements()[0].getDuration().getValue());
-    }
+    } catch (Exception e){
+            System.out.println("Fehlerhafte eingabe der Google Daten");
+            return -1;
+        }
 }
