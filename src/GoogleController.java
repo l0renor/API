@@ -38,4 +38,4 @@ public class GoogleController {
             System.out.println("Fehlerhafte eingabe der Google Daten");
             return -1;
         }
-}
+}}
