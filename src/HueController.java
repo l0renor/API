@@ -47,6 +47,7 @@ public class HueController {
             os.close();
             httpURLConnection.getResponseMessage();
         } catch (IOException e) {
+            System.out.println("Fehler beim verbinden mit den Lampen!");
             e.printStackTrace();
         }
 
