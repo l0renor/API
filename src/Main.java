@@ -7,24 +7,45 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 //Bsp args: Agnes-Pockels-Bogen+21+80992+München 8:15 bicycling Ingolstädter+Str.+38+80992+München 10:00 driving Bunzlauer+Str.+8+80992+München 8:30 transit
 
+/**
+ * @author Leon Lukas, Fabian Reinold
+ */
 public class Main {
     public static final String BASEGOOGLE = "https://maps.googleapis.com/maps/api/distancematrix/json?language=de&units=metric";
-    public static final String BROWSERURL = "https://www.google.de/maps/dir/Lothstraße+6,+80335+München/";
+    private static final String BROWSERURL = "https://www.google.de/maps/dir/Lothstraße+6,+80335+München/";
 
 
     public static void main(String[] args) throws InterruptedException, URISyntaxException, IOException {
         HueController c = new HueController();
 
-        Person leonLukas = new Person("Leon Lukas", "Agnes-Pockels-Bogen+21+80992+München", "16:20", "bicycling",1);
-        Person paulaPuenktlich = new Person("Paula Pünktlich", "Ingolstädter+Str.+38+80992+München", "16:30", "driving",2);
-        Person lotharLate = new Person("Lothar Late", "Bunzlauer+Str.+8+80992+München", "16:30", "transit",3);
-
         List<Person> persons = new ArrayList<>();
-        persons.add(leonLukas);
-        persons.add(paulaPuenktlich);
-        persons.add(lotharLate);
 
+        /*
+         * Fügt die Personen mit Daten von der Konsole ein.
+         */
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        for (int i = 1; i < 4; i++) {
+            System.out.println("Namen von Person "+i+" angeben");
+            String name = bufferedReader.readLine();
+            System.out.println("Arbeitsort von "+name+" angeben");
+            String workplace = bufferedReader.readLine().replace(" ", "+");
+            System.out.println("Arbeitsbeginn von "+name+" angeben");
+            String start = bufferedReader.readLine();
+            System.out.println("Fortbewegungsmittel von "+name+" angeben, entweder 'driving', 'bicycling' oder 'transit'");
+            String mot = bufferedReader.readLine();
+            Person p = new Person(name, workplace, start, mot, i);
+            persons.add(p);
+        }
 
+        /*
+        Person leonLukas = new Person("Leon Lukas", "Agnes-Pockels-Bogen+21+80992+München", "11:10", "bicycling",1);
+        Person paulaPuenktlich = new Person("Paula Pünktlich", "Ingolstädter+Str.+38+80992+München", "11:20", "driving",2);
+        Person lotharLate = new Person("Lothar Late", "Bunzlauer+Str.+8+80992+München", "11:30", "transit",3);
+        */
+
+        /*
+         * Thread zum Prüfen, ob Person geht.
+         */
         Thread atHome = new Thread(new Runnable() { public void run() {
             while (true) {
                 try {
@@ -43,19 +64,24 @@ public class Main {
         }});
         atHome.start();
 
-        /*if (Desktop.isDesktopSupported()) {
+        /*
+         * Öffnet die Routen im Browser.
+         */
+        if (Desktop.isDesktopSupported()) {
             for (Person p : persons) {
                 String uri = BROWSERURL + p.getWorkplace();
                 Desktop.getDesktop().browse(new URI(uri));
             }
-        } */
+        }
 
+        /*
+         * Schleife, die prüft, wann der Benutzer gehen muss
+         */
         while (true) {
             for (Person p : persons) {
                 if(p.isHome()) {
                     int secondsToTravel = GoogleController.getTravelduration(p.getWorkplace(), p.getMeanOfTransport());
                     int secondsUntilLeave = p.getSecondsUntilLeave(secondsToTravel);
-                    System.out.println(secondsUntilLeave);
                     if (secondsUntilLeave > 120) {
                         c.changeLight(p.getLightNumber(), Color.WHITE);
                     } else if (secondsUntilLeave > 60) {
@@ -65,11 +91,10 @@ public class Main {
                     } else {
                         while(p.isHome()) {
                             c.changeLight(0, Color.RED);
-                            Thread.sleep(500);
+                            Thread.sleep(1000);
                             c.changeLight(0, Color.OFF);
-                            Thread.sleep(500);
+                            Thread.sleep(1000);
                         }
-                        atHome.start();
                     }
                 } else {
                     c.changeLight(p.getLightNumber(), Color.OFF);

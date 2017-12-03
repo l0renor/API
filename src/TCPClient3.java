@@ -50,7 +50,10 @@ public class TCPClient3 {
 		try {
 			con = (HttpsURLConnection)
 					new URL(url).openConnection();
-			try(	
+			if (con.getResponseCode() != 200) {
+			    System.out.println("Es gab Probleme mit der Verbindung zum Google-Server");
+            }
+			try(
 					InputStream input = con.getInputStream();
 	
 					BufferedReader fromServer =

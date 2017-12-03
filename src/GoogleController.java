@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.HashMap;
 
+/**
+ * @author Leon Lukas
+ */
 public class GoogleController {
 
     public static final String BASEGOOGLE = "https://maps.googleapis.com/maps/api/distancematrix/json?language=de&units=metric";
@@ -23,7 +26,6 @@ public class GoogleController {
         params.put("origins" ,START);
         params.put("mode" ,verkehrsmittel);
         String antwort = client.doRequest("https://maps.googleapis.com/maps/api/distancematrix/json?language=de&units=metric",params);
-
         ObjectMapper mapper = new ObjectMapper();
         GoogleResponse json = null;
         try {

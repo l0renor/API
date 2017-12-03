@@ -1,6 +1,10 @@
 import java.time.Duration;
 import java.time.LocalTime;
 
+/**
+ * @author Fabian Reinold
+ * Objekt, um die einzelnen Personen übersichtlicher zu managen.
+ */
 public class Person {
     private String name;
     private String workplace;

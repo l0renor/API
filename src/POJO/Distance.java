@@ -1,5 +1,8 @@
 package POJO;
 
+/**
+ * @author Leon Lukas
+ */
 public class Distance
 {
     private String text;

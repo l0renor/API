@@ -1,5 +1,8 @@
 package POJO;
 
+/**
+ * @author Leon Lukas
+ */
 public class Elements
 {
     private Duration duration;
